@@ -1,6 +1,19 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+function makeSVG(text, textColor, shape, shapeColor) {
+    const svgContent = `
+    <svg width="300" height="200">
+      <rect width="100%" height="100%" fill="${shapeColor}" />
+      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-size="48" fill="${textColor}">
+        ${text}
+      </text>
+    </svg>
+  `;
+
+  return svgContent;
+}
+
 inquirer
 .prompt([
     {
@@ -24,4 +37,14 @@ inquirer
         name: 'shapeColor',
         message: 'Enter a color or hexidecimal code: ',
     }
-]);
+])
+.then(answers => {
+    const { text, textColor, shape, shapeColor } = answers;
+    const svgContent = makeSVG(text, textColor, shape, shapeColor);
+
+    fs.writeFileSync('logo.svg', svgContent);
+    console.log('Generated logo.svg');
+})
+.catch(error => {
+  console.error(error);
+});
