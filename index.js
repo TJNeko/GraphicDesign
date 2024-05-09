@@ -2,10 +2,25 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 
 function makeSVG(text, textColor, shape, shapeColor) {
+    let shapeContent;
+    switch (shape) {
+        case 'circle':
+            shapeContent = `<circle cx="150" cy="100" r="80" fill="${shapeColor}" />`;
+            break;
+        case 'triangle':
+            shapeContent = `
+                <polygon points="150,50 100,150 200,150" fill="${shapeColor}" />
+            `;
+            break;
+        case 'square':
+            shapeContent = `<rect x="50" y="50" width="200" height="200" fill="${shapeColor}" />`;
+            break;
+    }
+        
     const svgContent = `
     <svg width="300" height="200">
-      <rect width="100%" height="100%" fill="${shapeColor}" />
-      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-size="48" fill="${textColor}">
+    ${shapeContent}
+      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-size="60" fill="${textColor}">
         ${text}
       </text>
     </svg>
@@ -19,7 +34,7 @@ inquirer
     {
         type: 'input',
         name: 'text',
-        message: 'Enter up to 3 letters: '
+        message: 'Enter 3 letters: '
     },
     {
         type: 'input',
