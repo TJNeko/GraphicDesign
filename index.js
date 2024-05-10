@@ -9,11 +9,11 @@ function makeSVG(text, textColor, shape, shapeColor) {
             break;
         case 'triangle':
             shapeContent = `
-                <polygon points="150,50 100,150 200,150" fill="${shapeColor}" />
+                <polygon points="150,0 0,150 300,150" fill="${shapeColor}" />
             `;
             break;
         case 'square':
-            shapeContent = `<rect x="50" y="50" width="200" height="200" fill="${shapeColor}" />`;
+            shapeContent = `<rect x="50" y="0" width="200" height="200" fill="${shapeColor}" />`;
             break;
     }
         
